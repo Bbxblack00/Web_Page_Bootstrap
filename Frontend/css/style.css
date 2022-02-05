@@ -1,0 +1,150 @@
+
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.container {
+  max-width: 960px;
+}
+
+main .container:first-child {
+  margin-top: 35px;
+}
+
+/* Style header */
+
+.site-header {
+  background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.site-header a {
+  color: #8e8e8e;
+  transition: color .15s ease-in-out;
+}
+.site-header a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.product-device {
+  position: absolute;
+  right: 10%;
+  bottom: -30%;
+  width: 300px;
+  height: 540px;
+  background-color: #333;
+  border-radius: 21px;
+  transform: rotate(30deg);
+}
+
+.product-device::before {
+  position: absolute;
+  top: 10%;
+  right: 10px;
+  bottom: 10%;
+  left: 10px;
+  content: "";
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 5px;
+}
+
+.product-device-2 {
+  top: -25%;
+  right: auto;
+  bottom: 0;
+  left: 5%;
+  background-color: #e5e5e5;
+}
+
+a .card {
+  border-radius: 10px;
+}
+
+.space {
+  margin: 25px 0;
+}
+.shadow {
+  box-shadow: 25px 15px 5px;
+}
+
+footer {
+  margin-top: 25px;
+}
+
+.flex-equal > * {
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    flex: 1;
+  }
+}
+
+/* products */
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.offer-height {
+  height: 350px !important;
+}
+
+/* form */
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dimension {
+  width: 335px;
+}
+
+form h1 {
+  min-width: 100%;
+  text-align: center;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 70%;
+
+  padding: 15px;
+  margin: auto;
+  margin-top: 70px;
+
+  border: 1px solid #333;
+  border-radius: 15px;
+}
+
+.form-floating {
+  margin: 10px auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* categorie */

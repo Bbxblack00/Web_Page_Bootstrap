@@ -76,14 +76,9 @@ app.post('/inserimentoAzienda', (request,res)=>{
     });
 });
 
-app.get('/accesso', (request,res)=>{
-    
-    let mail = request.query.email;
-    let password = request.query.password;
+app.get('/categoria', (request,res)=>{
 
-    let istruzione = `select * from utenti where email = '${mail}' and password = '${password}';`;
-
-    console.log(istruzione);
+    let istruzione = `select * from categorie;`;
 
     connessione.query(istruzione, (errore, risultato)=>{
         if (risultato.length > 0){
@@ -91,6 +86,7 @@ app.get('/accesso', (request,res)=>{
                 messaggio: 'tutto ok',
                 return: risultato
             });
+            console.log(risultato);
         } else {
             res.status(400);
             res.send({
@@ -101,7 +97,49 @@ app.get('/accesso', (request,res)=>{
     });
 });
 
+app.get('/accesso', (request,res)=>{
+    
+    let mail = request.query.email;
+    let password = request.query.password;
 
+    let istruzione = `select * from utenti where email = '${mail}' and password = '${password}'`;
+
+    console.log(istruzione);
+
+    connessione.query(istruzione, (errore, risultato)=>{
+        if (risultato.length > 0){
+            res.send({
+                messaggio: 'tutto ok',
+                return: risultato,
+                
+            });
+            
+        } else {
+            res.status(400);
+            res.send({
+                messaggio: 'tutto male',
+                return: risultato
+            });
+        }
+    });
+});
+
+app.delete('/cancella/:nCat', (request,res) =>{
+
+    let nomeCat = request.params.nCat;
+
+    console.log(nomeCat);
+
+    let istruzione = `delete from categorie where nome = '${nomeCat}';`;
+
+    console.log(istruzione);
+
+    connessione.query(istruzione, (errore, risisultato)=>{
+        res.send({
+            messaggio: 'ok dati cancellati correttamente'
+        });
+    });
+});
 
 app.listen(3000, () => {                    // imposto il server in ascolto sulla porta 3000
     console.log('server is running')        // 3000

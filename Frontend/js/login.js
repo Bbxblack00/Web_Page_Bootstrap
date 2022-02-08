@@ -1,4 +1,4 @@
-const { redirect } = require("statuses");
+
 
 function utente() {
     this.email;
@@ -25,17 +25,20 @@ function invia(){
 
     fetch(url).then(
 
-        result => {
+        async result => {
 
             console.log(result.ok);
             
             if(result.ok == true){
-                let risultato = result.json();
+                let risultato = await result.json();
                 console.log(risultato);
-                // document.getElementById('esito').innerHTML = 'Autenticazione Avvenuta con Successo';
-                // wondow.redirect("../index.html");
+                let idLogUser = risultato.return[0].idUtenti;
                 window.alert('Autenticazione Avvenuta con Successo');
-                
+                if (idLogUser == 1) {
+                    window.location.assign(`http://localhost:5500/Web_Page_Bootstrap/Frontend/pagineSecondarie/accesso/paginacontrollo/paginaAmministrazione.html`);
+                }else{
+                    window.location.assign('http://localhost/Web_Page_Bootstrap/Frontend/pagineSecondarie/dashboard.html');
+                }
             }else{
                 document.getElementById('esito').innerHTML = 'Email o Password errati... riprova';
                 throw new Error();
@@ -47,5 +50,5 @@ function invia(){
         }
     );
     
-    
 }
+

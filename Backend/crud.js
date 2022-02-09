@@ -69,7 +69,7 @@ app.post('/inserimentoAzienda', (request,res)=>{
     console.log(istruzione);
 
     connessione.query(istruzione, (errore, risultato)=>{
-        console.log(risultato);
+        // console.log(risultato);
         res.send({
             messaggio: 'ok dati inseriti correttamente'
         });
@@ -124,19 +124,49 @@ app.get('/accesso', (request,res)=>{
     });
 });
 
-app.delete('/cancella/:nCat', (request,res) =>{
+app.delete('/cancellaCategoria/:nCat', (request,res) =>{
 
     let nomeCat = request.params.nCat;
 
     console.log(nomeCat);
 
     let istruzione = `delete from categorie where nome = '${nomeCat}';`;
+    let istruzione2 = `delete from prodotti where categoriaDiAppartenenza = '${nomeCat}';`;
 
-    console.log(istruzione);
+    connessione.query(istruzione, (errore, risisultato)=>{});
+    connessione.query(istruzione2, (errore, risisultato)=>{
+        res.send({
+            messaggio: 'ok dati cancellati correttamente'
+        });
+    });
+});
+
+app.post('/nuova/categoria', (request,res)=>{
+    let nome = request.body.nome;
+    let descrizione = request.body.descrizione;
+
+    let istruzione = `insert into categorie (nome, descrizione) values ('${nome}', '${descrizione}')`;
 
     connessione.query(istruzione, (errore, risisultato)=>{
         res.send({
-            messaggio: 'ok dati cancellati correttamente'
+            messaggio: 'ok dati inseriti correttamente'
+        });
+    });
+});
+
+app.post('/modificaCategoria', (request,res)=>{
+    
+    let oldNome = request.body.oldNome;
+    let neoNome = request.body.neoNome;
+
+    let istruzione = `update categorie set nome = '${neoNome}' where nome = '${oldNome}';`;
+    let istruzione2 = `update prodotti set categoriaDiAppartenenza = '${neoNome}' where categoriaDiAppartenenza = '${oldNome}';`;
+
+    connessione.query(istruzione, (errore, risultato)=>{});
+
+    connessione.query(istruzione2, (errore, risultato)=>{
+        res.send({
+            messaggio: 'ok dati aggiornati correttamente'
         });
     });
 });

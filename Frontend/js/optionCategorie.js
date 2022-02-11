@@ -16,6 +16,22 @@ let datiCategorie = fetch('http://localhost:3000/categoria').then(
             risultato.return.forEach(element => {
                 document.getElementById('categ2').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
             });
+
+            risultato.return.forEach(element => {
+                document.getElementById('categ3').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
+            });
+
+            risultato.return.forEach(element => {
+                document.getElementById('categ4').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
+            });
+
+            risultato.return.forEach(element => {
+                document.getElementById('newTableCateg').innerHTML += `<tr>
+                                                                            <th scope="row">${element.idCategoria}</th>
+                                                                            <td>${element.nome}</td>
+                                                                            <td>${element.descrizione}</td>
+                                                                        </tr>`;
+            });
             
         }
 

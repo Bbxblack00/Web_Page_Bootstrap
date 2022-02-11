@@ -86,7 +86,26 @@ app.get('/categoria', (request,res)=>{
                 messaggio: 'tutto ok',
                 return: risultato
             });
-            console.log(risultato);
+        } else {
+            res.status(400);
+            res.send({
+                messaggio: 'tutto male',
+                return: risultato
+            });
+        }
+    });
+});
+
+app.get('/prodotto', (request,res)=>{
+
+    let istruzione = `select * from prodotti;`;
+
+    connessione.query(istruzione, (errore, risultato)=>{
+        if (risultato.length > 0){
+            res.send({
+                messaggio: 'tutto ok',
+                return: risultato
+            });
         } else {
             res.status(400);
             res.send({
@@ -141,11 +160,56 @@ app.delete('/cancellaCategoria/:nCat', (request,res) =>{
     });
 });
 
+app.delete('/cancellaProdotto/:nCat', (request,res) =>{
+
+    let nomeCat = request.params.nCat;
+
+    console.log(nomeCat);
+
+    let istruzione = `delete from prodotti where categoriaDiAppartenenza = '${nomeCat}';`;
+
+    connessione.query(istruzione, (errore, risisultato)=>{
+        res.send({
+            messaggio: 'ok dati cancellati correttamente'
+        });
+    });
+});
+
+app.delete('/cancellaProdotto', (request,res) =>{
+
+    let nomeCat = request.query.nome;
+    let idProd = parseInt(request.query.id);
+
+    console.log(nomeCat);
+
+    let istruzione = `delete from prodotti where categoriaDiAppartenenza = '${nomeCat}' and idProdotti = ${idProd};`;
+
+    connessione.query(istruzione, (errore, risisultato)=>{
+        res.send({
+            messaggio: 'ok dati cancellati correttamente'
+        });
+    });
+});
+
 app.post('/nuova/categoria', (request,res)=>{
     let nome = request.body.nome;
     let descrizione = request.body.descrizione;
 
-    let istruzione = `insert into categorie (nome, descrizione) values ('${nome}', '${descrizione}')`;
+    let istruzione = `insert into categorie (nome, descrizione) values ('${nome}', '${descrizione}');`;
+
+    connessione.query(istruzione, (errore, risisultato)=>{
+        res.send({
+            messaggio: 'ok dati inseriti correttamente'
+        });
+    });
+});
+
+app.post('/nuova/prodotto', (request,res)=>{
+    let nome = request.body.nome;
+    let cat = request.body.categoria;
+    let descrizione = request.body.descrizione;
+
+    let istruzione = `insert into prodotti (nome, categoriaDiAppartenenza, descrizione) values ('${nome}', '${cat}', '${descrizione}');`;
 
     connessione.query(istruzione, (errore, risisultato)=>{
         res.send({
@@ -158,8 +222,9 @@ app.post('/modificaCategoria', (request,res)=>{
     
     let oldNome = request.body.oldNome;
     let neoNome = request.body.neoNome;
+    let neoDescrizione = request.body.neoDescrizione;
 
-    let istruzione = `update categorie set nome = '${neoNome}' where nome = '${oldNome}';`;
+    let istruzione = `update categorie set nome = '${neoNome}' and descrizione = '${neoDescrizione}' where nome = '${oldNome}';`;
     let istruzione2 = `update prodotti set categoriaDiAppartenenza = '${neoNome}' where categoriaDiAppartenenza = '${oldNome}';`;
 
     connessione.query(istruzione, (errore, risultato)=>{});

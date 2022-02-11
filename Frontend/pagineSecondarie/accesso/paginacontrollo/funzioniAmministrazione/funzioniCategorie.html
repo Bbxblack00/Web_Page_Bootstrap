@@ -44,8 +44,9 @@
   </nav>
 </header>
 
-<main class="d-flex">
-  <!-- CREAZIONE -->
+<main>
+  <div class="d-flex justify-content-between flex-wrap">
+    <!-- CREAZIONE -->
     <form class="form-signin" style="width: 335px;">
       <h1 class="h3 mb-3 fw-normal">Inserisci una nuova Categoria</h1>
       <div class="form-floating">
@@ -72,16 +73,35 @@
       <h1 class="h3 mb-3 fw-normal">Cambia nome</h1>
       <div class="form-floating">
         <select id="categ2">
-          <option value="" selected disabled hidden>Seleziona una categoria</option>
+          <option value="" selected disabled hidden>Nuovo nome per la categoria</option>
         </select>
       </div>
       <div class="form-floating">
         <input type="text" class="form-control" id="neoNome" maxlength="20">
         <label for="floatingInput">Nome Categoria</label>
       </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="neoDescrizione">
+        <label for="floatingInput">Descrizione Categoria</label>
+      </div>
       <button type="button" onclick="cambiaNomeCategorie()" class="w-100 btn btn-lg btn-primary" style="background-color: rgba(0, 0, 0, .85) !important; color: white; border-color: #333 !important;">Aggiorna</button>
     </form>
-  </main>
+  </div>
+  <!-- TABELLA CATEGORIE -->
+  <div class="container my-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrizione</th>
+        </tr>
+      </thead>
+      <tbody id="newTableCateg">
+      </tbody>
+    </table>
+  </div>
+</main>
 
 <footer class="container py-5">
   <div class="row">

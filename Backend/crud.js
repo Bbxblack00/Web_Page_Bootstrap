@@ -116,6 +116,26 @@ app.get('/prodotto', (request,res)=>{
     });
 });
 
+app.get('/utente', (request,res)=>{
+
+    let istruzione = `select * from utenti;`;
+
+    connessione.query(istruzione, (errore, risultato)=>{
+        if (risultato.length > 0){
+            res.send({
+                messaggio: 'tutto ok',
+                return: risultato
+            });
+        } else {
+            res.status(400);
+            res.send({
+                messaggio: 'tutto male',
+                return: risultato
+            });
+        }
+    });
+});
+
 app.get('/accesso', (request,res)=>{
     
     let mail = request.query.email;
@@ -175,7 +195,7 @@ app.delete('/cancellaProdotto/:nCat', (request,res) =>{
     });
 });
 
-app.delete('/cancellaProdotto', (request,res) =>{
+app.delete('/cancellaILProdotto', (request,res) =>{
 
     let nomeCat = request.query.nome;
     let idProd = parseInt(request.query.id);
@@ -188,6 +208,33 @@ app.delete('/cancellaProdotto', (request,res) =>{
         res.send({
             messaggio: 'ok dati cancellati correttamente'
         });
+    });
+});
+
+app.get('/modalProd', (request,res) =>{
+
+    let idProd = parseInt(request.query.id);
+
+    let istruzione = `select * from prodotti where idProdotti = ${idProd};`;
+
+    console.log(istruzione);
+
+    connessione.query(istruzione, (errore, risultato)=>{
+        if (risultato.length > 0){
+            console.log(risultato);
+            res.send({
+                messaggio: 'tutto ok',
+                return: risultato,
+                
+            });
+            
+        } else {
+            res.status(400);
+            res.send({
+                messaggio: 'tutto male',
+                return: risultato
+            });
+        }
     });
 });
 
@@ -230,6 +277,23 @@ app.post('/modificaCategoria', (request,res)=>{
     connessione.query(istruzione, (errore, risultato)=>{});
 
     connessione.query(istruzione2, (errore, risultato)=>{
+        res.send({
+            messaggio: 'ok dati aggiornati correttamente'
+        });
+    });
+});
+
+app.post('/modificaProdotto', (request,res)=>{
+    let id = request.body.id;
+    let nome = request.body.nome;
+    let categoriaDiAppartenenza = request.body.categoriaDiAppartenenza;
+    let descrizione = request.body.descrizione;
+    let prezzo = parseFloat(request.body.prezzo);
+
+    let istruzione = `update prodotti set nome = '${nome}', categoriaDiAppartenenza = '${categoriaDiAppartenenza}', descrizione = '${descrizione}', prezzo = ${prezzo} where idProdotti = ${id};`;
+    console.log(istruzione);
+
+    connessione.query(istruzione, (errore, risultato)=>{
         res.send({
             messaggio: 'ok dati aggiornati correttamente'
         });

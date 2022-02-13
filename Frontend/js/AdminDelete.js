@@ -21,7 +21,7 @@ function cancellaProdotti() {
 function cancellaIlProdotto() {
   let nomeCat = document.getElementById('categ3').value;
   let idCat = document.getElementById('idProdotto').value;
-  fetch('http://localhost:3000/cancellaProdotto?nome=' + nomeCat + '&id=' + idCat, {
+  fetch('http://localhost:3000/cancellaIlProdotto?nome=' + nomeCat + '&id=' + idCat, {
     method: 'DELETE',
   }).then(res => res.json())
 

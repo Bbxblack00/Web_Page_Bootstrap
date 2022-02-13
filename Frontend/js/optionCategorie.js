@@ -12,11 +12,11 @@ let datiCategorie = fetch('http://localhost:3000/categoria').then(
             risultato.return.forEach(element => {
                 document.getElementById('categ').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
             });
-
+            console.log(document.getElementById('categ2').value);
             risultato.return.forEach(element => {
                 document.getElementById('categ2').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
             });
-
+            console.log(document.getElementById('categ3').value);
             risultato.return.forEach(element => {
                 document.getElementById('categ3').innerHTML += `<option value="${element.nome}">${element.nome}</option>`;
             });

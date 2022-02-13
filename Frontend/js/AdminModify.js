@@ -6,6 +6,14 @@ function categoria() {
     this.neoDescrizione;
 }
 
+function prodotto() {
+    this.id;
+    this.nome;
+    this.categoriaDiAppartenenza;
+    this.descrizione;
+    this.prezzo;
+}
+
 var url = 'http://localhost:3000/';
 
 function cambiaNomeCategorie() {
@@ -25,4 +33,24 @@ function cambiaNomeCategorie() {
     })
     document.getElementById('neoNome').innerHTML = ' ';
     setTimeout(function() { window. location. reload() }, 750);
+}
+
+function cambiaNomeProdotti() {
+    let prod = new prodotto();
+    prod.id = document.getElementById('idModifica').value;
+    prod.categoriaDiAppartenenza = document.getElementById('categ4').value;
+    prod.nome = document.getElementById('neoNome').value;
+    prod.descrizione = document.getElementById('neoDescrizione').value;
+    prod.prezzo = document.getElementById('price').value;
+
+    console.log(prod.id);
+
+    fetch(url + 'modificaProdotto', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(prod)
+    })
+    setTimeout(function() { window. location. reload() }, 1250);
 }
